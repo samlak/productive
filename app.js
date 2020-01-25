@@ -22,7 +22,7 @@ yargs.command({
         }
     },
     handler(argv){
-        console.log(getLog(argv.status));
+        getLog(argv.status);
     }
 });
 
@@ -30,7 +30,7 @@ yargs.command({
     command: 'stop',
     describe: 'Stop productive',
     handler(argv){
-        stop(7);
+        stop(process.env.LAST_ID);
     }
 });
 

@@ -1,3 +1,4 @@
+require('dotenv').config();
 const fs = require('fs');
 const moment = require('moment');
 
@@ -17,7 +18,8 @@ const start = () => {
     });
 
     saveLog(logs);
-    process.env.LAST_ID = id;
+    generateEnv(id);
+    console.log('Prductive started ............');
 };
 
 const stop = (id) => {
@@ -25,8 +27,10 @@ const stop = (id) => {
     const log = logs.find((log) => log.id === id);
 
     log.stop =  moment();
-    saveLog(logs)
-    console.log(log.stop);
+    saveLog(logs);
+    console.log('Prductive stopped');
+    console.log('-----------------');
+    getLog('today');
 };
 
 const getLog = (status) => {
@@ -37,45 +41,46 @@ const getLog = (status) => {
     const lastWeek = moment().week() - 1;
     const thisMonth = moment().month();
     const lastMonth = moment().month() - 1; 
-    
+
     if(status === 'today' || status === 'yesterday' || status === 'thisWeek' || status === 'lastWeek' || status === 'thisMonth' ||  status === 'lastMonth' || status === 'all') {
         const log = logs.filter((filteredLog) => {
             if(status === 'today'){
-                if(moment(filteredLog.start).dayOfYear() === today){
-                    return [filteredLog];
+                if(moment(filteredLog.start).dayOfYear() === today && filteredLog.stop != null){
+                    return filteredLog;
                 }
             } else if (status === 'yesterday'){
-                if(moment(filteredLog.start).dayOfYear() === yesterday){
-                    return [filteredLog];
+                if(moment(filteredLog.start).dayOfYear() === yesterday  && filteredLog.stop != null){
+                    return filteredLog;
                 }
             } else if (status === 'thisWeek'){
-                if(moment(filteredLog.start).week() === thisWeek){
-                    return [filteredLog];
+                if(moment(filteredLog.start).week() === thisWeek && filteredLog.stop != null){
+                    return filteredLog;
                 }
             } else if (status === 'lastWeek'){
-                if(moment(filteredLog.start).week() === lastWeek){
-                    return [filteredLog];
+                if(moment(filteredLog.start).week() === lastWeek && filteredLog.stop != null){
+                    return filteredLog;
                 }
             } else if (status === 'thisMonth'){
-                if(moment(filteredLog.start).month() === thisMonth){
-                    return [filteredLog];
+                if(moment(filteredLog.start).month() === thisMonth && filteredLog.stop != null){
+                    return filteredLog;
                 }
             } else if (status === 'lastMonth'){
-                if(moment(filteredLog.start).month() === lastMonth){
-                    return [filteredLog];
+                if(moment(filteredLog.start).month() === lastMonth && filteredLog.stop != null){
+                    return filteredLog;
                 }
             } else if (status === 'all'){
-                return [filteredLog];
+                if(filteredLog.stop != null){
+                    return filteredLog;
+                }
             }
         }).map((duration) => timeToNumber(duration.stop) - timeToNumber(duration.start))
         .reduce((start, stop) => {
             return start + stop;
         }, 0);
-
-        return `You have spent ${moment.duration(log).months()} month(s) ${moment.duration(log).weeks()} week(s) ${moment.duration(log).days()} day(s)
-        ${moment.duration(log).hours()} hour(s) ${moment.duration(log).minutes()} minute(s) ${moment.duration(log).seconds()} second(s) coding.`;
+        console.log(process.env.LAST_ID);
+        console.log(`You have spent ${moment.duration(log).months()} month(s) ${moment.duration(log).weeks()} week(s) ${moment.duration(log).days()} day(s) ${moment.duration(log).hours()} hour(s) ${moment.duration(log).minutes()} minute(s) ${moment.duration(log).seconds()} second(s) coding.`);
     } else {
-        return "You have checked for the wrong status. You can only check for this ['today', 'yesterday', 'thisWeek', 'lastWeek', 'thisMonth', 'all']";
+        console.log("You have checked for the wrong status. You can only check for this ['today', 'yesterday', 'thisWeek', 'lastWeek', 'thisMonth', 'all']");
     }
 
 }
@@ -97,5 +102,10 @@ const loadLog = () => {
 const saveLog = (logs) => {
     fs.writeFileSync('log.json', JSON.stringify(logs));
 }
+
+const generateEnv = (id) => {
+    const env = `LAST_ID=${id}`;
+    fs.writeFileSync('.env', env);
+};
 
 module.exports = {start, stop, getLog};

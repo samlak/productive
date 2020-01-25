@@ -21,9 +21,14 @@
   "homepage": "https://github.com/samlak/productive#readme",
   "dependencies": {
     "chalk": "^3.0.0",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
     "lodash": "^4.17.15",
     "moment": "^2.24.0",
     "validator": "^12.1.0",
     "yargs": "^15.1.0"
+  },
+  "devDependencies": {
+    "node-env-run": "^3.0.2"
   }
 }
