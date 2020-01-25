@@ -22,7 +22,7 @@ yargs.command({
         }
     },
     handler(argv){
-        getLog(argv.status);
+        console.log(getLog(argv.status));
     }
 });
 
@@ -30,7 +30,7 @@ yargs.command({
     command: 'stop',
     describe: 'Stop productive',
     handler(argv){
-        stop(3);
+        stop(7);
     }
 });
 
