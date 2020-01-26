@@ -1,7 +1,19 @@
 const _ = require('lodash');
 const yargs = require('yargs');
+const express = require('express');
+
+app = express();
+
+app.set('view engine', 'ejs');
+
+app.use(express.static('public'));
 
 const {start, stop, getLog} = require('./process');
+
+app.get("/", function(req, res){
+    res.render('home', {data: 'data'});
+});
+
 
 yargs.command({
     command: 'start',
@@ -35,3 +47,7 @@ yargs.command({
 });
 
 yargs.parse();
+
+app.listen(3200, function() {
+    console.log('Server running on port 3200.');
+});
