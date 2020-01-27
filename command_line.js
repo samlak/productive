@@ -25,12 +25,14 @@ const start = () => {
 const stop = (id) => {
     const logs = loadLog();
     const log = logs.find((log) => log.id === id);
-
-    log.stop =  moment();
+    if(log.stop === null){
+        log.stop =  moment();
+    }
     saveLog(logs);
     console.log('Prductive stopped');
     console.log('-----------------');
     getLog('today');
+
 };
 
 const getLog = (status) => {
@@ -77,7 +79,6 @@ const getLog = (status) => {
         .reduce((start, stop) => {
             return start + stop;
         }, 0);
-        console.log(process.env.LAST_ID);
         console.log(`You have spent ${moment.duration(log).months()} month(s) ${moment.duration(log).weeks()} week(s) ${moment.duration(log).days()} day(s) ${moment.duration(log).hours()} hour(s) ${moment.duration(log).minutes()} minute(s) ${moment.duration(log).seconds()} second(s) coding.`);
     } else {
         console.log("You have checked for the wrong status. You can only check for this ['today', 'yesterday', 'thisWeek', 'lastWeek', 'thisMonth', 'all']");
@@ -108,4 +109,4 @@ const generateEnv = (id) => {
     fs.writeFileSync('.env', env);
 };
 
-module.exports = {start, stop, getLog};
+module.exports = {start, stop, getLog, loadLog};
