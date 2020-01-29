@@ -4,6 +4,13 @@ const moment = require('moment');
 
 const start = () => {
     const logs = loadLog();
+
+    // const started = logs.find((nulledLog) => nulledLog.stop === null);
+
+    // if(started){
+    //     stop(started.id);
+    // }
+
     if (logs.length == 0){
         var id = 1;
     } else {
@@ -19,10 +26,12 @@ const start = () => {
 
     saveLog(logs);
     generateEnv(id);
+
     console.log('Prductive started ............');
 };
 
-const stop = (id) => {
+const stop = () => {
+    const id = Number(process.env.LAST_ID);
     const logs = loadLog();
     const log = logs.find((log) => log.id === id);
     if(log.stop === null){
@@ -34,6 +43,7 @@ const stop = (id) => {
     getLog('today');
 
 };
+
 
 const getLog = (status) => {
     const logs = loadLog();

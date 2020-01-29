@@ -17,6 +17,17 @@ app.get("/", function(req, res){
     res.render('home', {data});
 });
 
+app.post("/start", function(req, res){
+    start();
+});
+
+app.post("/stop", function(req, res){
+    stop();
+});
+
+app.listen(3000, function() {
+    console.log('Server running on port 3000.');
+});
 
 yargs.command({
     command: 'start',
@@ -45,13 +56,8 @@ yargs.command({
     command: 'stop',
     describe: 'Stop productive',
     handler(argv){
-        const id = Number(process.env.LAST_ID);
-        stop(id);
+        stop();
     }
 });
 
 yargs.parse();
-
-app.listen(3000, function() {
-    console.log('Server running on port 3000.');
-});

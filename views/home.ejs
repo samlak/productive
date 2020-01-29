@@ -49,7 +49,7 @@
       </ul>
       <ul class="squares">
         <% for (var i = 0; i < data.daysInYear; i++) { %>
-          <li data-toggle="tooltip" data-placement="bottom" data-animation="false" delay="0" title="gs" data-level="2"></li>
+          <li data-toggle="tooltip" data-placement="bottom" data-animation="false" delay="0" title="<%= data.date[i] %>" data-level="2"></li>
         <% } %>
       </ul>
     </div>
@@ -58,16 +58,21 @@
 
     <div class="row text-center">
       <div class="col">
-        <button type="button" class="col btn btn-outline-success">Start App</button>
+        <button type="button" id="start-app" class="col btn btn-outline-success">Start App</button>
       </div>
       <div class="col">
-        <button type="button" class="col btn btn-outline-danger">Stop App</button>
+        <button type="button" id="stop-app" class="col btn btn-outline-danger">Stop App</button>
       </div>
       <div class="col">
         <select id="period" class="col form-control">
           <option selected>Choose period</option>
+          <option value="all">All</option>
           <option value="today">Today</option>
           <option value="yesterday">Yesterday</option>
+          <option value="thisWeek">This Week</option>
+          <option value="lastWeek">Last Week</option>
+          <option value="thisMonth">This Month</option>
+          <option value="lastMonth">Last Month</option>
         </select>
       </div>
       <div class="col">
