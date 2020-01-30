@@ -89,9 +89,21 @@ const getLog = (status) => {
         .reduce((start, stop) => {
             return start + stop;
         }, 0);
-        console.log(`You have spent ${moment.duration(log).months()} month(s) ${moment.duration(log).weeks()} week(s) ${moment.duration(log).days()} day(s) ${moment.duration(log).hours()} hour(s) ${moment.duration(log).minutes()} minute(s) ${moment.duration(log).seconds()} second(s) coding.`);
+        const timeSpent = {
+            "duration": {
+                month: moment.duration(log).months(),
+                week: moment.duration(log).weeks(),
+                day: moment.duration(log).days(),
+                hour: moment.duration(log).hours(),
+                minute: moment.duration(log).minutes(),
+                second: moment.duration(log).seconds()
+            }
+        };
+        return timeSpent;
     } else {
-        console.log("You have checked for the wrong status. You can only check for this ['today', 'yesterday', 'thisWeek', 'lastWeek', 'thisMonth', 'all']");
+        return {
+            "duration": "You have checked for the wrong status. You can only check for this ['today', 'yesterday', 'thisWeek', 'lastWeek', 'thisMonth', 'all']"
+        }
     }
 
 }
