@@ -34,9 +34,9 @@ app.post("/stop", function(req, res){
 });
 
 app.get("/log/:status", function(req, res){
-    const timeSpent = getLog(req.params.status);
-    durationDisplay(timeSpent);
-    console.log(durationDisplay(timeSpent));
+    const getTime = getLog(req.params.status);
+    console.log(durationDisplay(getTime));
+    return durationDisplay(getTime);
 });
 
 app.listen(3000, function() {

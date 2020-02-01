@@ -131,4 +131,4 @@ const generateEnv = (id) => {
     fs.writeFileSync('.env', env);
 };
 
-module.exports = {start, stop, getLog, loadLog};
+module.exports = {start, stop, getLog, loadLog, timeToNumber};

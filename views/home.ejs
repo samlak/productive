@@ -49,7 +49,7 @@
       </ul>
       <ul class="squares">
         <% for (var i = 0; i < data.daysInYear; i++) { %>
-          <li data-toggle="tooltip" data-placement="bottom" data-animation="false" delay="0" title="<%= data.date[i] %>" data-level="2"></li>
+          <li data-toggle="tooltip" data-placement="bottom" data-animation="false" delay="0" title="<%= data.date[i] %>" data-level="<%= data.level[i] %>"></li>
         <% } %>
       </ul>
     </div>

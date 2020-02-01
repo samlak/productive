@@ -92,6 +92,10 @@
   .squares li[data-level="3"] {
     background-color: #1B3699;
   }
+  
+  .squares li[data-level="4"] {
+    background-color: rgb(7, 44, 129);
+  }
 
   .bg-blue {
     background-color: #3960EF;
